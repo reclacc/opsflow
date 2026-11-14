@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import Any
 
 import jwt
@@ -6,7 +6,6 @@ from jwt.exceptions import InvalidTokenError
 from pwdlib import PasswordHash
 
 from opsflow.core.config import settings
-
 
 password_hash = PasswordHash.recommended()
 
@@ -24,9 +23,9 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 def create_access_token(subject: str | Any, expires_delta: timedelta | None = None) -> str:
     """Генерирует подписанный JWT-токен."""
     if expires_delta:
-        expire = datetime.now(timezone.utc) + expires_delta
+        expire = datetime.now(UTC) + expires_delta
     else:
-        expire = datetime.now(timezone.utc) + timedelta(
+        expire = datetime.now(UTC) + timedelta(
             minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
         )
 

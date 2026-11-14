@@ -10,7 +10,6 @@ from opsflow.core.security import decode_access_token
 from opsflow.database.session import get_db
 from opsflow.models.user import User
 
-
 oauth2_scheme = OAuth2PasswordBearer(
     tokenUrl=f"{settings.API_V1_PREFIX}/auth/login"
 )

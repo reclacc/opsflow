@@ -1,10 +1,11 @@
 from fastapi import FastAPI
 
-app = FastAPI(
-    title="OpsFlow API",
-    description="Service desk",
-    version="0.1.0"
-)
+from opsflow.api.v1.auth import router as auth_router
+from opsflow.core.config import settings
+
+app = FastAPI(title=settings.APP_NAME, debug=settings.DEBUG)
+
+app.include_router(auth_router, prefix=settings.API_V1_PREFIX)
 
 @app.get("/health/")
 async def get_health():
