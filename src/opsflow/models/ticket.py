@@ -18,3 +18,19 @@ class Ticket(Base, TimestampMixin):
 
     author_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     author: Mapped["User"] = relationship(lazy="joined")
+
+class TicketCreate(Base):
+    title: str
+    description: str
+    priority: str = "MEDIUM"
+
+class TicketUpdateStatus(Base):
+    status: str
+
+class TicketRead(Base, TimestampMixin):
+    id: int
+    title: str
+    description: str
+    status: str
+    priority: str 
+    author_id: int
